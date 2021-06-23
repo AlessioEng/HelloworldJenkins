@@ -7,5 +7,6 @@ public class Prova {
 		boolean esito=true;
 		if(esito==true)
 			System.out.println("Hello, World!");
+		System.out.println("Hello, World!");
 	}
 }
