@@ -1,10 +1,37 @@
-pipeline {
-    agent { docker { image 'maven:3.3.3' } }
-    stages {
-        stage('build') {
-            steps {
-                sh 'mvn --version'
+pipeline{
+    agent any
+    tools{
+        maven 'maven 3.8'
+        jdk 'JDK11'
+        git 'Git'
+    }
+    stages{
+        stage('Clone sources') {
+            steps{
+                git url: 'https://github.com/AlessioEng/HelloworldJenkins.git',
+                    credentialsId : 'e53d73bb-0091-4274-b76a-fb179039c21e',
+                    branch : 'main'
+                    
+            }
+        }
+        stage('mvn version'){
+            steps{
+                
+            withMaven{
+                bat 'mvn -version'
+            }
+                
+            }
+        }
+        stage('Build'){
+            steps{
+                
+            withMaven{
+                bat 'mvn clean install'
+            }
+                
             }
         }
     }
 }
+
